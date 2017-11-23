@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ViewPlayer: MonoBehaviour
 {
-
     public TextMesh myLife;
 
     public void RepaintLife(int life)

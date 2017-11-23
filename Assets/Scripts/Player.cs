@@ -5,12 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public ViewPlayer view;
-    private Controller _controller;
+    public int maxHp;
+    private PlayerController _controller;
 
 	void Awake () {
 
-        ModelPlayer model = new ModelPlayer(transform);
-        _controller = new Controller(model, view);
+        ModelPlayer model = new ModelPlayer(transform, maxHp);
+        _controller = new PlayerController(model, view);
 
 	}
 	
