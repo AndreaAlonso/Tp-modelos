@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IObservable {
 
     public ViewEnemy view;
     private IController _IA;
+    private IObserver _manager;
+   
 
     void Awake()
     {
@@ -16,5 +19,15 @@ public class Enemy : MonoBehaviour {
     void Update()
     {
         _IA.OnUpdate();
+    }
+
+    public void Subscribe(IObserver obs)
+    {
+        _manager = obs;
+    }
+
+    private void OnDestroy()
+    {
+        _manager.Notify(true);
     }
 }
