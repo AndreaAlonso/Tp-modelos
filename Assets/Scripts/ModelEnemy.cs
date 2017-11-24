@@ -6,9 +6,9 @@ public class ModelEnemy  {
 
     private Transform _enemyTransform;
     private int _hp;
-    private int _speed;
+    private float _speed;
 
-    public ModelEnemy (Transform t, int maxHp, int speed)
+    public ModelEnemy (Transform t, int maxHp, float speed)
     {
         _enemyTransform = t;
         _hp = maxHp;

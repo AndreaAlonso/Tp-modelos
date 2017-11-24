@@ -5,12 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public ViewPlayer view;
-    public int maxHp;
-    private PlayerController _controller;
+    private IController _controller;
 
 	void Awake () {
 
-        ModelPlayer model = new ModelPlayer(transform, maxHp);
+        ModelPlayer model = new ModelPlayer(transform, FlyWeightPointer.State.hpMax,FlyWeightPointer.State.speed);
         _controller = new PlayerController(model, view);
 
 	}

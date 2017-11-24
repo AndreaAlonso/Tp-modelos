@@ -10,9 +10,9 @@ public class ModelPlayer {
     public event Action<int> OnShoot = delegate { };
     private Transform _playerTransform;
     public int hp;
-    private int _speed;
+    private float _speed;
 
-    public ModelPlayer (Transform t, int maxHp, int speed)
+    public ModelPlayer (Transform t, int maxHp, float speed)
     {
         _playerTransform = t;
         hp = maxHp;
