@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour, IObservable {
         ModelEnemy _model = new ModelEnemy(transform, FlyWeightPointer.State.hpMax, FlyWeightPointer.State.speed);
         //_model.LifeBar += view.ReceivedDamage;
         view = new ViewEnemy();
-        _IA = new EnemyController(_model, view, FindObjectOfType<ModelPlayer>().transform, transform);
+        //_IA = new EnemyController(_model, view, FindObjectOfType<ModelPlayer>().transform, transform);
     }
 
     public virtual void Update()

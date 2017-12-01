@@ -75,6 +75,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Bullet.cs" />
+    <Compile Include="Assets\Camera.cs" />
     <Compile Include="Assets\LUT\LookUpTable.cs" />
     <Compile Include="Assets\Pool\Pool.cs" />
     <Compile Include="Assets\Pool\PoolObject.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ViewEnemy.cs" />
     <Compile Include="Assets\Scripts\ViewPlayer.cs" />
+    <Compile Include="Assets\Spawner.cs" />
     <Compile Include="Assets\Strategy\Debuffs.cs" />
     <Compile Include="Assets\Strategy\Estados\Burn.cs" />
     <Compile Include="Assets\Strategy\Estados\Decrepify.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Assets\Strategy\Estados\Uzi.cs" />
     <Compile Include="Assets\Strategy\Interfaz\IGun.cs" />
     <Compile Include="Assets\Strategy\Interfaz\Idebuff.cs" />
+    <Compile Include="Assets\Weapon.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

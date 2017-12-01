@@ -20,7 +20,7 @@ public class EnemyController : IController {
 
     public override void OnUpdate()
     {
-        _model.OnMove(_hero.position - _enemyTransform.position);
+        _model.OnMove((_hero.position - _enemyTransform.position).normalized);
     }
 
 }

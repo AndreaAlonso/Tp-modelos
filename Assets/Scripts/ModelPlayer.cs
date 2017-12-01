@@ -20,7 +20,6 @@ public class ModelPlayer : Entity, IObservable {
 
     private void Awake()
     {
-        t = transform;
         hp = FlyWeightPointer.State.hpMax;
         speed = FlyWeightPointer.State.speed;
         view = new ViewPlayer();
@@ -43,7 +42,9 @@ public class ModelPlayer : Entity, IObservable {
 
     public override void OnMove(Vector3 newPos)
     {
-        t.position += newPos*Time.deltaTime*speed;
+        if(newPos!=Vector3.zero)
+            transform.forward = newPos;
+        transform.position += newPos*Time.deltaTime*speed;
     }
 
     public override void TakeDamage(int dmgReceived)

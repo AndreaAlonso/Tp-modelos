@@ -8,7 +8,6 @@ public abstract class Entity : MonoBehaviour {
     public int hp;
     public float speed;
     public IObserver manager;
-    public Transform t;
 
     public abstract void OnMove(Vector3 dir);
     public abstract void TakeDamage(int dmg);
