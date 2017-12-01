@@ -11,8 +11,8 @@ public class Player : MonoBehaviour, IObservable {
 
     void Awake () {
 
-        ModelPlayer model = new ModelPlayer(transform, FlyWeightPointer.State.hpMax,FlyWeightPointer.State.speed);
-        _controller = new PlayerController(model, view);
+        //ModelPlayer model = new ModelPlayer(transform, FlyWeightPointer.State.hpMax,FlyWeightPointer.State.speed);
+        //_controller = new PlayerController(model, view);
 
 	}
 

@@ -13,11 +13,12 @@ public class Enemy : MonoBehaviour, IObservable {
     void Awake()
     {
         ModelEnemy _model = new ModelEnemy(transform, FlyWeightPointer.State.hpMax, FlyWeightPointer.State.speed);
-        _model.LifeBar += view.ReceivedDamage;
-        _IA = new EnemyController(_model, view, FindObjectOfType<Player>().transform, transform);
+        //_model.LifeBar += view.ReceivedDamage;
+        view = new ViewEnemy();
+        _IA = new EnemyController(_model, view, FindObjectOfType<ModelPlayer>().transform, transform);
     }
 
-    void Update()
+    public virtual void Update()
     {
         _IA.OnUpdate();
     }

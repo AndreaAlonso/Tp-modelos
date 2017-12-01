@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class EnemyController : IController {
 
-    ModelEnemy _model;
+    MeleeEnemy _model;
     ViewEnemy _view;
     Transform _hero;
     Transform _enemyTransform;
 
-    public EnemyController(ModelEnemy model, ViewEnemy view, Transform heroTransform, Transform enemyTransform)
+    public EnemyController(MeleeEnemy model, ViewEnemy view, Transform heroTransform, Transform enemyTransform)
     {
         _model = model;
         _view = view;
@@ -20,7 +20,7 @@ public class EnemyController : IController {
 
     public override void OnUpdate()
     {
-        _model.Move(_hero.position - _enemyTransform.position);
+        _model.OnMove(_hero.position - _enemyTransform.position);
     }
 
 }

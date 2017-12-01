@@ -3,35 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ModelPlayer : MonoBehaviour {
+public class ModelPlayer : Entity, IObservable {
+
+
+    public ViewPlayer view;
+    private IController _controller;
 
     public event Action<int> OnDamage = delegate { };
     public event Action<int> OnShoot = delegate { };
-    private Transform _playerTransform;
-    public int hp;
-    private float _speed;
+    //private Transform _playerTransform;
+    //public int hp;
+   // private float _speed;
     private bool _canShoot;
     public IGun weapon;
+    //private IObserver _manager;
 
-    public ModelPlayer (Transform t, int maxHp, float speed)
+    private void Awake()
+    {
+        t = transform;
+        hp = FlyWeightPointer.State.hpMax;
+        speed = FlyWeightPointer.State.speed;
+        view = new ViewPlayer();
+        _controller = new PlayerController(this, view);
+    }
+
+
+    private void Update()
+    {
+        _controller.OnUpdate();
+    }
+
+  /*  public ModelPlayer (Transform t, int maxHp, float speed)
     {
         _playerTransform = t;
         hp = maxHp;
         _speed = speed;
     }
+    */
 
-    public void OnMove(Vector3 newPos)
+    public override void OnMove(Vector3 newPos)
     {
-        _playerTransform.position += newPos*Time.deltaTime*_speed;
+        t.position += newPos*Time.deltaTime*speed;
     }
 
-    public void TakeDamage(int dmgReceived)
+    public override void TakeDamage(int dmgReceived)
     {
         hp -= dmgReceived;
         OnDamage(hp);
     }
 
-    public void Shoot()
+    public override void Attack()
     {
         weapon.Shoot();
         _canShoot = false;
@@ -44,5 +65,21 @@ public class ModelPlayer : MonoBehaviour {
         _canShoot = true;
     }
 
-    
+    public void Subscribe(IObserver obs)
+    {
+        manager = obs;
+    }
+
+    private void OnTriggerEnter(Collider c)
+    {
+        if(c is IPickable)
+        {
+            c.GetComponent<IPickable>().Effect();
+            return;
+        }
+        if(c is IDebuff)
+        {
+            c.GetComponent<IDebuff>().Debuff();
+        }
+    }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IPickiable
+public interface IPickable
 {
     IGun Effect();
 }

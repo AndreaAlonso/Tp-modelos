@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ModelEnemy  {
+public class ModelEnemy : MonoBehaviour  {
 
     public event Action<int> LifeBar = delegate { };
     private Transform _enemyTransform;
-    private int _hp;
+    public int _hp;
     private float _speed;
 
     public ModelEnemy (Transform t, int maxHp, float speed)

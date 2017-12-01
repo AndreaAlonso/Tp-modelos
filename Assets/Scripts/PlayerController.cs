@@ -11,12 +11,14 @@ public class PlayerController : IController {
     {
         _model = model;
         _view = view;
-        _view.RepaintLife(_model.hp);
-        _model.OnDamage += _view.RepaintLife;
+        //_view.RepaintLife(_model.hp);
+        //_model.OnDamage += _view.RepaintLife;
     }
 
     public override void OnUpdate()
     {
         _model.OnMove(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")));
+        if(Input.GetKeyUp(KeyCode.J))
+            _model.Attack();
     }
 }
