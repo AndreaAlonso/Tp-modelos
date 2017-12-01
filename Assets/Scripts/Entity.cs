@@ -6,7 +6,6 @@ public abstract class Entity : MonoBehaviour {
 
     public IController controller;
     public int hp;
-    public float speed;
     public IObserver manager;
 
     public abstract void OnMove(Vector3 dir);

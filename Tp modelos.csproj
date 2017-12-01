@@ -76,12 +76,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Bullet.cs" />
+    <Compile Include="Assets\BulletCommon.cs" />
+    <Compile Include="Assets\BulletPool.cs" />
+    <Compile Include="Assets\BulletRay.cs" />
     <Compile Include="Assets\Camera.cs" />
+    <Compile Include="Assets\Enemy.cs" />
     <Compile Include="Assets\LUT\LookUpTable.cs" />
     <Compile Include="Assets\Pool\Pool.cs" />
     <Compile Include="Assets\Pool\PoolObject.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
-    <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\Entity.cs" />
     <Compile Include="Assets\Scripts\FlyWeight.cs" />
     <Compile Include="Assets\Scripts\FlyWeightPointer.cs" />
@@ -90,11 +92,15 @@
     <Compile Include="Assets\Scripts\IObservable.cs" />
     <Compile Include="Assets\Scripts\IObserver.cs" />
     <Compile Include="Assets\Scripts\IPickiable.cs" />
+    <Compile Include="Assets\Scripts\MeleeController.cs" />
     <Compile Include="Assets\Scripts\MeleeEnemy.cs" />
     <Compile Include="Assets\Scripts\ModelEnemy.cs" />
     <Compile Include="Assets\Scripts\ModelPlayer.cs" />
-    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\RangeController.cs" />
+    <Compile Include="Assets\Scripts\RangeEnemy.cs" />
+    <Compile Include="Assets\Scripts\SuicideController.cs" />
+    <Compile Include="Assets\Scripts\SuicideEnemy.cs" />
     <Compile Include="Assets\Scripts\ViewEnemy.cs" />
     <Compile Include="Assets\Scripts\ViewPlayer.cs" />
     <Compile Include="Assets\Spawner.cs" />

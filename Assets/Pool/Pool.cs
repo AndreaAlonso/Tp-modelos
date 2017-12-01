@@ -34,6 +34,7 @@ public class Pool<T>
             if (!_poolList[i].isActive)
             {
                 _poolList[i].isActive = true;
+                //Debug.Log("Se supone que lo active");
                 return _poolList[i].GetObj;
             }
         }

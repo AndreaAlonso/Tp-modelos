@@ -7,44 +7,37 @@ public class ModelPlayer : Entity, IObservable {
 
 
     public ViewPlayer view;
-    private IController _controller;
 
     public event Action<int> OnDamage = delegate { };
     public event Action<int> OnShoot = delegate { };
-    //private Transform _playerTransform;
-    //public int hp;
-   // private float _speed;
     private bool _canShoot;
-    public IGun weapon;
-    //private IObserver _manager;
+    public Weapon weapon;
+
+    private float _speed;
+
 
     private void Awake()
     {
+        _speed = 5f;
         hp = FlyWeightPointer.State.hpMax;
-        speed = FlyWeightPointer.State.speed;
         view = new ViewPlayer();
-        _controller = new PlayerController(this, view);
+        controller = new PlayerController(this, view);
+        weapon = GetComponentInChildren<Weapon>();
     }
 
 
     private void Update()
     {
-        _controller.OnUpdate();
+        if (controller == null)
+            return;
+        controller.OnUpdate();
     }
-
-  /*  public ModelPlayer (Transform t, int maxHp, float speed)
-    {
-        _playerTransform = t;
-        hp = maxHp;
-        _speed = speed;
-    }
-    */
 
     public override void OnMove(Vector3 newPos)
     {
         if(newPos!=Vector3.zero)
             transform.forward = newPos;
-        transform.position += newPos*Time.deltaTime*speed;
+        transform.position += newPos*Time.deltaTime* _speed;
     }
 
     public override void TakeDamage(int dmgReceived)
@@ -57,7 +50,7 @@ public class ModelPlayer : Entity, IObservable {
     {
         weapon.Shoot();
         _canShoot = false;
-        StartCoroutine(WaitToShoot(weapon.CoolDown()));
+        StartCoroutine(WaitToShoot(weapon.Cooldown));
     }
 
     public IEnumerator WaitToShoot (float secondsToWait)

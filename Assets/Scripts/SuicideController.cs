@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : IController {
+public class SuicideController : IController {
 
-    MeleeEnemy _model;
+    SuicideEnemy _model;
     ViewEnemy _view;
     Transform _hero;
     Transform _enemyTransform;
+    float _distToShoot;
 
-    public EnemyController(MeleeEnemy model, ViewEnemy view, Transform heroTransform, Transform enemyTransform)
+    public SuicideController(SuicideEnemy model, ViewEnemy view, Transform heroTransform, Transform enemyTransform)
     {
         _model = model;
         _view = view;
@@ -22,5 +22,4 @@ public class EnemyController : IController {
     {
         _model.OnMove((_hero.position - _enemyTransform.position).normalized);
     }
-
 }

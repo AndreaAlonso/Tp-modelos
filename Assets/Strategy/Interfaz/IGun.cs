@@ -5,7 +5,7 @@ using UnityEngine;
 public interface IGun
 {
     float CoolDown();
-    void Shoot();
+    void Shoot(Vector3 posSpawn, Vector3 forward);
 
     int Reload();
 	

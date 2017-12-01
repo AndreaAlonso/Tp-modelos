@@ -10,14 +10,16 @@ public class GameManager : MonoBehaviour, IObserver {
     private int _wave=1;
     private LookUpTable<int, int> enemiesAmount;
     private List<Enemy> enemiesOnScene = new List<Enemy>();
+    private Spawner enemiesPool;
 
     void Start () {
 
         enemiesAmount = new LookUpTable<int, int>(Calculate);
+        enemiesPool = FindObjectOfType<Spawner>();
 
         SpawnWave();
 
-        FindObjectOfType<Player>().Subscribe(this);
+        FindObjectOfType<ModelPlayer>().Subscribe(this);
 
 
       /*  var list = FindObjectsOfType<Enemy>();
@@ -40,7 +42,13 @@ public class GameManager : MonoBehaviour, IObserver {
 
     private void SpawnWave()
     {
-        
+        var cant = enemiesAmount.ReturnValue(_wave);
+        for (int i = 0; i < cant; i++)
+        {
+            
+            enemiesOnScene.Add(enemiesPool.SpawnEnemy());
+            _enemiesCount++;
+        }
     }
 
     public void Notify(bool enemy)

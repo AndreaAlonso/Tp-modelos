@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeEnemy : Entity {
+public class MeleeEnemy : Enemy {
 
     public ViewEnemy view;
     public event Action<int> OnDamage = delegate { };
@@ -11,17 +11,14 @@ public class MeleeEnemy : Entity {
     private void Awake()
     {
         hp = FlyWeightPointer.State.hpMax;
-        speed = FlyWeightPointer.State.speed;
         view = new ViewEnemy();
-        controller = new EnemyController(this, view, FindObjectOfType<ModelPlayer>().transform, transform);
+        controller = new MeleeController(this, view, FindObjectOfType<ModelPlayer>().transform, transform);
     }
 
-    void Start () {
-		
-	}
-
-	public void Update () {
-
+	public void Update ()
+    {
+        if (controller == null)
+            return;
         controller.OnUpdate();
 	}
 
@@ -29,7 +26,7 @@ public class MeleeEnemy : Entity {
     {
         if (newPos != Vector3.zero)
             transform.forward = newPos;
-        transform.position += newPos * Time.deltaTime * speed;
+        transform.position += newPos * Time.deltaTime * FlyWeightPointer.State.speed;
     }
 
     public override void TakeDamage(int dmg)
@@ -43,25 +40,33 @@ public class MeleeEnemy : Entity {
         throw new NotImplementedException();
     }
 
-    public static void InitializeEnemy(MeleeEnemy enemyObj)
+    private void OnTriggerEnter(Collider other)
     {
-        enemyObj.gameObject.SetActive(true);
-        enemyObj.Initialize();
+        if (other.gameObject.GetComponent(typeof(Bullet)))
+        {
+            TakeDamage(other.GetComponent<Bullet>().dmg);
+        }
     }
 
-    private void Initialize()
-    {
-        
-    }
+    //public static void InitializeEnemy(MeleeEnemy enemyObj)
+    //{
+    //    enemyObj.gameObject.SetActive(true);
+    //    enemyObj.Initialize();
+    //}
 
-    public static void DisposeEnemy(MeleeEnemy enemyObj)
-    {
-        enemyObj.Dispose();
-        enemyObj.gameObject.SetActive(false);
-    }
+    //public void Initialize()
+    //{
+    //    hp = FlyWeightPointer.State.hpMax;
+    //}
 
-    private void Dispose()
-    {
-        
-    }
+    //public static void DisposeEnemy(MeleeEnemy enemyObj)
+    //{
+    //    enemyObj.Dispose();
+    //    enemyObj.gameObject.SetActive(false);
+    //}
+
+    //public void Dispose()
+    //{
+
+    //}
 }
