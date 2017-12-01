@@ -7,11 +7,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour, IObserver {
 
     private int _enemiesCount;
-    private int _wave;
+    private int _wave=1;
+    private LookUpTable<int, int> enemiesAmount;
+    private List<Enemy> enemiesOnScene = new List<Enemy>();
 
     void Start () {
 
+        enemiesAmount = new LookUpTable<int, int>(Calculate);
+
+        SpawnWave();
+
         FindObjectOfType<Player>().Subscribe(this);
+
 
       /*  var list = FindObjectsOfType<Enemy>();
         _enemiesCount = list.Length;
@@ -23,8 +30,18 @@ public class GameManager : MonoBehaviour, IObserver {
 	}
 	
 	void Update () {
-		
+
+        if (_enemiesCount <= 0)
+        {
+            _wave++;
+            SpawnWave();
+        }
 	}
+
+    private void SpawnWave()
+    {
+        
+    }
 
     public void Notify(bool enemy)
     {
@@ -32,5 +49,10 @@ public class GameManager : MonoBehaviour, IObserver {
             _enemiesCount--;
         else
             SceneManager.LoadScene("GameOver");
+    }
+
+    public int Calculate(int waveNumber)
+    {
+        return waveNumber * 5;
     }
 }

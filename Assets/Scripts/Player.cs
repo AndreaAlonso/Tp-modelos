@@ -9,16 +9,13 @@ public class Player : MonoBehaviour, IObservable {
     private IController _controller;
     private IObserver _manager;
 
-    
-
     void Awake () {
 
         ModelPlayer model = new ModelPlayer(transform, FlyWeightPointer.State.hpMax,FlyWeightPointer.State.speed);
         _controller = new PlayerController(model, view);
 
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
         _controller.OnUpdate();
 	}

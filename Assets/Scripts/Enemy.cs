@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour, IObservable {
     void Awake()
     {
         ModelEnemy _model = new ModelEnemy(transform, FlyWeightPointer.State.hpMax, FlyWeightPointer.State.speed);
+        _model.LifeBar += view.ReceivedDamage;
         _IA = new EnemyController(_model, view, FindObjectOfType<Player>().transform, transform);
     }
 
@@ -26,7 +27,7 @@ public class Enemy : MonoBehaviour, IObservable {
         _manager = obs;
     }
 
-    private void OnDestroy()
+    private void OnDeath()
     {
         _manager.Notify(true);
     }

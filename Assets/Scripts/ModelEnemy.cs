@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ModelEnemy  {
 
+    public event Action<int> LifeBar = delegate { };
     private Transform _enemyTransform;
     private int _hp;
     private float _speed;
