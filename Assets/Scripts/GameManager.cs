@@ -6,29 +6,22 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour, IObserver {
 
-    private int _enemiesCount;
+    public int _enemiesCount;
     private int _wave=1;
     private LookUpTable<int, int> enemiesAmount;
     private List<Enemy> enemiesOnScene = new List<Enemy>();
-    private Spawner enemiesPool;
+    public List<Transform> spawns=new List<Transform>();
+    private ModelPlayer _hero;
 
     void Start () {
 
         enemiesAmount = new LookUpTable<int, int>(Calculate);
-        enemiesPool = FindObjectOfType<Spawner>();
 
-        //SpawnWave();
+        StartCoroutine(SpawnWave());
 
-        FindObjectOfType<ModelPlayer>().Subscribe(this);
+        _hero = FindObjectOfType<ModelPlayer>();
+        _hero.Subscribe(this);
 
-
-      /*  var list = FindObjectsOfType<Enemy>();
-        _enemiesCount = list.Length;
-        for (int i = 0; i < list.Length; i++)
-        {
-            list[i].Subscribe(this);
-        }
-        */
 	}
 	
 	void Update () {
@@ -40,14 +33,22 @@ public class GameManager : MonoBehaviour, IObserver {
         //}
 	}
 
-    private void SpawnWave()
+
+    private IEnumerator SpawnWave()
     {
         var cant = enemiesAmount.ReturnValue(_wave);
         for (int i = 0; i < cant; i++)
         {
-            
-            enemiesOnScene.Add(enemiesPool.SpawnEnemy());
-            _enemiesCount++;
+            for (int j = 0; j < spawns.Count; j++)
+            {
+               Spawner.Instance.SpawnEnemy().SetPos(spawns[j].position).Subscribe(this);
+                _enemiesCount++;
+                i++;
+                if (i > cant)
+                    break;
+                yield return new WaitForSeconds(0.1f);
+                
+            }
         }
     }
 

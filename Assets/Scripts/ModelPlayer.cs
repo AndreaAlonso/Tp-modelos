@@ -9,33 +9,28 @@ public class ModelPlayer : Entity, IObservable {
     public ViewPlayer view;
 
     public event Action<int> OnDamage = delegate { };
-    public event Action<int> OnShoot = delegate { };
     private bool _canShoot=true;
     public Weapon weapon;
 
-
-    public bool pistol;
-    public bool railgun;
-    public bool shotgun;
-
     private float _speed;
+    private bool _gettingPushed;
+    private Vector3 _pushDirection;
 
 
     private void Awake()
     {
-        _speed = 5f;
-        hp = FlyWeightPointer.State.hpMax;
+        _speed = 6f;
+        hp = 500;
         view = new ViewPlayer();
         controller = new PlayerController(this, view);
         weapon = GetComponentInChildren<Weapon>();
-        weapon.pistol = pistol;
-        weapon.railgun = railgun;
-        weapon.shotgun = shotgun;
+
     }
-
-
+    
     private void Update()
     {
+        if (_gettingPushed)
+            OnMove(_pushDirection);
         if (controller == null)
             return;
         controller.OnUpdate();
@@ -51,10 +46,14 @@ public class ModelPlayer : Entity, IObservable {
         transform.position += newPos*Time.deltaTime* _speed;
     }
 
-    public override void TakeDamage(int dmgReceived)
+    public override void TakeDamage(int dmg)
     {
-        hp -= dmgReceived;
-        OnDamage(hp);
+        hp -= dmg;
+        if (hp >= 0)
+            OnDamage(hp);       
+        else        
+            manager.Notify(false);
+
     }
 
     public override void Attack()
@@ -81,14 +80,39 @@ public class ModelPlayer : Entity, IObservable {
 
     private void OnTriggerEnter(Collider c)
     {
-        if(c is IPickable)
+        if (c.GetComponent(typeof(Bullet)))
         {
-            c.GetComponent<IPickable>().Effect();
-            return;
+            TakeDamage(((Bullet)c.GetComponent(typeof(Bullet))).currentBullet.DamageDone());
         }
-        if(c is IDebuff)
+        else if (c.GetComponent(typeof(IPickable)))
         {
-            c.GetComponent<IDebuff>().Debuff();
+            weapon.ChangeWeapon(c.GetComponent<IPickable>().Effect());
         }
     }
+
+  /*  private void OnCollisionEnter(Collision c)
+    {
+        if(c.collider.GetComponent(typeof(Enemy)))
+        {
+            TakeDamage(((Enemy)c.collider.GetComponent(typeof(Enemy))).dmg);
+            _pushDirection = (transform.position - c.collider.transform.position).normalized*3f;
+            _gettingPushed = true;
+            StartCoroutine(NormalMove());
+        }
+    }*/
+
+    public void PushAndDamage(int dmg, Vector3 dir)
+    {
+        _pushDirection = dir.normalized * 3f;
+        _gettingPushed = true;
+        StartCoroutine(NormalMove());
+    }
+
+    private IEnumerator NormalMove()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _gettingPushed = false;
+    }
+
+
 }

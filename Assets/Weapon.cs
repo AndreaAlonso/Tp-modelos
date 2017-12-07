@@ -10,31 +10,19 @@ public class Weapon : MonoBehaviour {
     public int Ammo;
 
 
-    public bool pistol;
-    public bool railgun;
-    public bool shotgun;
-
-    void Start ()
-    {
-        
-    }
-
 	void Update ()
     {
         if (_myGun == null)
-        {
-            if (pistol)
-                _myGun = new Pistol();
-            else if(railgun)
-                _myGun = new Railgun();
-            else
-                _myGun = new Shotgun();
+        {            
+            _myGun = new Pistol();
             Cooldown = _myGun.CoolDown();
         }
     }
 
     public void Shoot()
     {
+        if (_myGun == null)
+            return;
         if (Ammo > 0)
         {
             _myGun.Shoot(transform.position,transform.forward);
@@ -47,9 +35,15 @@ public class Weapon : MonoBehaviour {
         }
     }
 
-    void ChangeWeapon(IGun newWeapon)
+    public void ChangeWeapon(IGun newWeapon)
     {
         _myGun = newWeapon;
         Ammo = _myGun.Reload();
+        Cooldown = _myGun.CoolDown();
+    }
+
+    public float CD()
+    {
+        return Cooldown;
     }
 }

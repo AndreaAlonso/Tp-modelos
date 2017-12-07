@@ -12,8 +12,8 @@ public class Pistol : IGun {
     {
         _cd = 0.5f;
         _amount = 9999;
-
     }
+
     public float CoolDown()
     {
         return _cd;

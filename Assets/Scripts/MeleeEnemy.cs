@@ -45,8 +45,10 @@ public class MeleeEnemy : Enemy {
             StartCoroutine(MoveAgain());
         }
         else
-            Destroy(this.gameObject);
-            //Spawner.Instance.ReturnEnemyToPool(this);
+        {
+            manager.Notify(true);
+            Spawner.Instance.ReturnEnemyToPool(this);
+        }
     }
 
     public override void Attack()
@@ -60,6 +62,15 @@ public class MeleeEnemy : Enemy {
         if (c.GetComponent(typeof(Bullet)))
         {
             TakeDamage(((Bullet)c.GetComponent(typeof(Bullet))).currentBullet.DamageDone());            
+        }
+    }
+
+    private void OnCollisionEnter(Collision c)
+    {
+        if (c.collider.GetComponent(typeof(ModelPlayer)))
+        {
+            c.collider.GetComponent<ModelPlayer>().PushAndDamage(dmg, c.collider.transform.position - transform.position);
+            Attack();        
         }
     }
 

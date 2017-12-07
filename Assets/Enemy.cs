@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Entity {
+public class Enemy : Entity  {
+
+    public int dmg=10;
 
     public static void InitializeEnemy(Enemy enemyObj)
     {
@@ -20,6 +22,12 @@ public class Enemy : Entity {
     {
         enemyObj.Dispose();
         enemyObj.gameObject.SetActive(false);
+    }
+
+    public Enemy SetPos(Vector3 newPos)
+    {
+        transform.position = newPos;
+        return this;
     }
 
     public void Dispose()
@@ -40,5 +48,10 @@ public class Enemy : Entity {
     public override void Attack()
     {
         
+    }
+
+    public virtual void Subscribe(IObserver obs)
+    {
+        manager = obs;
     }
 }

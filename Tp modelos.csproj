@@ -81,10 +81,17 @@
     <Compile Include="Assets\BulletRay.cs" />
     <Compile Include="Assets\Camera.cs" />
     <Compile Include="Assets\Enemy.cs" />
+    <Compile Include="Assets\EnemyBullet.cs" />
     <Compile Include="Assets\IBullet.cs" />
     <Compile Include="Assets\LUT\LookUpTable.cs" />
+    <Compile Include="Assets\Menu\Button.cs" />
     <Compile Include="Assets\NewBullet.cs" />
     <Compile Include="Assets\NormalBullet.cs" />
+    <Compile Include="Assets\Particles.cs" />
+    <Compile Include="Assets\ParticlesPool.cs" />
+    <Compile Include="Assets\PickManager.cs" />
+    <Compile Include="Assets\PickRailgun.cs" />
+    <Compile Include="Assets\PickShotgun.cs" />
     <Compile Include="Assets\Pool\Pool.cs" />
     <Compile Include="Assets\Pool\PoolObject.cs" />
     <Compile Include="Assets\RayBullet.cs" />
@@ -108,7 +115,6 @@
     <Compile Include="Assets\Scripts\ViewEnemy.cs" />
     <Compile Include="Assets\Scripts\ViewPlayer.cs" />
     <Compile Include="Assets\Spawner.cs" />
-    <Compile Include="Assets\Strategy\Debuffs.cs" />
     <Compile Include="Assets\Strategy\Estados\Burn.cs" />
     <Compile Include="Assets\Strategy\Estados\Decrepify.cs" />
     <Compile Include="Assets\Strategy\Estados\Disarm.cs" />

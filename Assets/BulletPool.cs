@@ -30,8 +30,6 @@ public class BulletPool : MonoBehaviour {
     {
         
         var bullet = _bulletPool.GetObjectFromPool();
-        //bullet.gameObject.SetActive(true);
-        //print(bullet.isActiveAndEnabled);
         bullet.Initialize();
         return bullet;
     }

@@ -5,4 +5,5 @@ using UnityEngine;
 public interface IPickable
 {
     IGun Effect();
+    void OnPick();
 }

@@ -20,6 +20,9 @@ public class SuicideController : IController {
 
     public override void OnUpdate()
     {
-        _model.OnMove((_hero.position - _enemyTransform.position).normalized);
+        if (Vector3.Distance(_hero.position, _enemyTransform.position) >= 3f)
+            _model.OnMove((_hero.position - _enemyTransform.position).normalized);
+        else
+            _model.Attack();
     }
 }
