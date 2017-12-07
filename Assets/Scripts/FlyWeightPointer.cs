@@ -23,6 +23,13 @@ public static class FlyWeightPointer
     };
 
     public static readonly float bulletSpeed = 30f;
+    public static readonly float raySpeed = 50f;
+
     public static readonly float distToShoot = 10f;
+
     public static readonly float bulletLifeSpan = 10f;
+    public static readonly float rayLifeSpan = 2f;
+
+    public static readonly int bulletDamage = 25;
+    public static readonly int rayDamage=15;
 }

@@ -9,6 +9,7 @@ public class RangeEnemy : Enemy {
     public event Action<int> OnDamage = delegate { };
     Weapon weapon;
     private bool _reloading;
+    private bool _stop;
 
     private void Awake()
     {

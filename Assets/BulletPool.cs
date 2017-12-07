@@ -38,7 +38,7 @@ public class BulletPool : MonoBehaviour {
 
     private Bullet BulletFactory()
     {
-        return Instantiate<Bullet>(prefab);
+        return Instantiate(prefab);
     }
     public void ReturnBulletToPool(Bullet bullet)
     {

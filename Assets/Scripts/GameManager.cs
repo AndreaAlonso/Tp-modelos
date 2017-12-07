@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour, IObserver {
         enemiesAmount = new LookUpTable<int, int>(Calculate);
         enemiesPool = FindObjectOfType<Spawner>();
 
-        SpawnWave();
+        //SpawnWave();
 
         FindObjectOfType<ModelPlayer>().Subscribe(this);
 
@@ -33,11 +33,11 @@ public class GameManager : MonoBehaviour, IObserver {
 	
 	void Update () {
 
-        if (_enemiesCount <= 0)
-        {
-            _wave++;
-            SpawnWave();
-        }
+        //if (_enemiesCount <= 0)
+        //{
+        //    _wave++;
+        //    SpawnWave();
+        //}
 	}
 
     private void SpawnWave()

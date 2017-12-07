@@ -7,6 +7,7 @@ public class MeleeEnemy : Enemy {
 
     public ViewEnemy view;
     public event Action<int> OnDamage = delegate { };
+    public bool stopped;
 
     private void Awake()
     {
@@ -19,33 +20,53 @@ public class MeleeEnemy : Enemy {
     {
         if (controller == null)
             return;
+        if (stopped)
+            return;
         controller.OnUpdate();
 	}
 
     public override void OnMove(Vector3 newPos)
     {
         if (newPos != Vector3.zero)
+        {
+            newPos.y = 0;
             transform.forward = newPos;
+        }
         transform.position += newPos * Time.deltaTime * FlyWeightPointer.State.speed;
     }
 
     public override void TakeDamage(int dmg)
     {
         hp -= dmg;
-        OnDamage(hp);
+        if (hp >= 0)
+        {
+            OnDamage(hp);
+            stopped = true;
+            StartCoroutine(MoveAgain());
+        }
+        else
+            Destroy(this.gameObject);
+            //Spawner.Instance.ReturnEnemyToPool(this);
     }
 
     public override void Attack()
     {
-        throw new NotImplementedException();
+        stopped = true;
+        StartCoroutine(MoveAgain());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider c)
     {
-        if (other.gameObject.GetComponent(typeof(Bullet)))
+        if (c.GetComponent(typeof(Bullet)))
         {
-            TakeDamage(other.GetComponent<Bullet>().dmg);
+            TakeDamage(((Bullet)c.GetComponent(typeof(Bullet))).currentBullet.DamageDone());            
         }
+    }
+
+    private IEnumerator MoveAgain()
+    {
+        yield return new WaitForSeconds(0.5f);
+        stopped = false;
     }
 
     //public static void InitializeEnemy(MeleeEnemy enemyObj)

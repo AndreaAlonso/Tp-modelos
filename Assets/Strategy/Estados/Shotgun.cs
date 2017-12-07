@@ -7,12 +7,11 @@ public class Shotgun : IGun
 {
     private float _cd;
     private int _amount;
-    private BulletPool _pool;
 
-    public Shotgun(float coolDown,int bullets)
+    public Shotgun()
     {
-        _cd = coolDown;
-        _amount = bullets;
+        _cd = 1f;
+        _amount = 36;
     }
 
     public float CoolDown()
@@ -27,9 +26,15 @@ public class Shotgun : IGun
 
     public void Shoot(Vector3 pos, Vector3 forward)
     {
-        var bullet = _pool.GetBullet();
-        bullet.transform.position = pos;
-        bullet.transform.forward = forward;
+        
+        for (int i = -1; i < 2; i++)
+        {
+            var bullet = BulletPool.Instance.GetBullet();
+            bullet.SetPosition(pos).SetType(new NormalBullet());
+            bullet.transform.forward = forward;
+            bullet.transform.forward += bullet.transform.right * i * 0.5f;
+
+        }
 
     }
 }

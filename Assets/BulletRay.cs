@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletRay : Bullet 
 {
-
+    /*
     public float speed;
     public float lifeSpan=2f;
     private float _tick;
@@ -49,5 +49,5 @@ public class BulletRay : Bullet
             BulletPool.Instance.ReturnBulletToPool(this);
         }
 
-    }
+    }*/
 }

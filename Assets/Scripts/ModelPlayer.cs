@@ -10,8 +10,13 @@ public class ModelPlayer : Entity, IObservable {
 
     public event Action<int> OnDamage = delegate { };
     public event Action<int> OnShoot = delegate { };
-    private bool _canShoot;
+    private bool _canShoot=true;
     public Weapon weapon;
+
+
+    public bool pistol;
+    public bool railgun;
+    public bool shotgun;
 
     private float _speed;
 
@@ -23,6 +28,9 @@ public class ModelPlayer : Entity, IObservable {
         view = new ViewPlayer();
         controller = new PlayerController(this, view);
         weapon = GetComponentInChildren<Weapon>();
+        weapon.pistol = pistol;
+        weapon.railgun = railgun;
+        weapon.shotgun = shotgun;
     }
 
 
@@ -35,8 +43,11 @@ public class ModelPlayer : Entity, IObservable {
 
     public override void OnMove(Vector3 newPos)
     {
-        if(newPos!=Vector3.zero)
+        if (newPos != Vector3.zero)
+        {
+            newPos.y = 0;
             transform.forward = newPos;
+        }
         transform.position += newPos*Time.deltaTime* _speed;
     }
 
@@ -48,9 +59,13 @@ public class ModelPlayer : Entity, IObservable {
 
     public override void Attack()
     {
-        weapon.Shoot();
-        _canShoot = false;
-        StartCoroutine(WaitToShoot(weapon.Cooldown));
+        if (_canShoot)
+        {
+            weapon.Shoot();
+            _canShoot = false;
+            StartCoroutine(WaitToShoot(weapon.Cooldown));
+
+        }
     }
 
     public IEnumerator WaitToShoot (float secondsToWait)
